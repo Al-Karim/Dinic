@@ -1,0 +1,34 @@
+{
+	"editor.formatOnSave": true,
+	"editor.codeActionsOnSave": {
+		"source.removeUnusedImports": true,
+		"source.organizeImports": true,
+		"source.fixAll.eslint": true
+	},
+	"editor.fontFamily": "Fira code",
+	"editor.fontSize": 13,
+	"editor.fontLigatures": true,
+	"editor.padding.top": 5,
+	"editor.defaultFormatter": "dbaeumer.vscode-eslint",
+	"editor.lineHeight": 1.7,
+	"i18n-ally.localesPaths": ["public/locales"],
+	"i18n-ally.keystyle": "flat",
+	"i18n-ally.sourceLanguage": "ru",
+	"i18n-ally.extract.targetPickingStrategy": "most-similar",
+	"eslint.validate": [
+		"vue",
+		"html",
+		"javascript",
+		"typescript",
+		"javascriptreact",
+		"typescriptreact"
+	],
+	"i18n-ally.extract.ignoredByFiles": {
+		"src/widgets/PageError/ui/PageError.tsx": [
+			"reload page"
+		]
+	},
+	"i18n-ally.extract.ignored": [
+		"Unexpected error"
+	]
+}
