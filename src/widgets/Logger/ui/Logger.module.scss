@@ -1,0 +1,11 @@
+.logger {
+  width: 30%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  border-right: 1px solid rgb(218, 218, 218);
+  padding: 6px;
+  overflow: scroll;
+}

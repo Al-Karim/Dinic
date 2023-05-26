@@ -1,15 +1,12 @@
 export {
-  $edges,
-  $nodes,
-  $selectionsElements,
-  GraphGate,
-  addSelectionElement,
-  changeEdge,
-  clearSelectionElements,
-  deleteEdge,
+  $activiesElements, $edges,
+  $nodes, $selectionsElements, GraphGate,
+  addActiveElement, addSelectionElement, changeEdge,
+  clearActiveElements, clearSelectionElements, deleteEdge,
   deleteNode,
-  removeSelectionElement,
+  removeActiveElement,
   resetEdges,
   setEdges,
   setNodes
 } from './model/Graph';
+

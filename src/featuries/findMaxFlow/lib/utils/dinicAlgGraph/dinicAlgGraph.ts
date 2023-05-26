@@ -1,4 +1,4 @@
-import { addSelectionElement, changeEdge } from 'entities/Graph';
+import { addActiveElement, addSelectionElement, changeEdge } from 'entities/Graph';
 import { setIsMessageQueueFilled, setMessageToQueue } from 'entities/MessagesQueue';
 import { addTasksToQueue, setIsTaskQueueFilled } from 'entities/TasksQueue';
 
@@ -86,16 +86,25 @@ export class DinicAlgGraph {
             edge.residual.flow += bottleneck; // Увеличиваем поток через обратное ребро на bottleneck
           }
           addTasksToQueue({
+            event: addSelectionElement,
+            payload: `${edge.v}`
+          });
+          addTasksToQueue({
+            event: addSelectionElement,
+            payload: `${u}`
+          });
+          addTasksToQueue({
             event: changeEdge,
             payload: {
               id: `${u}-${edge.v}`,
               source: u.toString(),
               target: edge.v.toString(),
-              label: edge.flow.toString()
+              label: edge.flow.toString(),
+              size: 3
             }
           });
           addTasksToQueue({
-            event: addSelectionElement,
+            event: addActiveElement,
             payload: `${u}-${edge.v}`
           });
           setMessageToQueue(`Пропускаем блокирующий поток в размере ${edge.flow} через ребро ${u - 1}-${edge.v - 1}`);
@@ -115,7 +124,7 @@ export class DinicAlgGraph {
     while (q.length > 0 && this.levels[dst] === -1) {
       const u = q.pop()!;
       addTasksToQueue({
-        event: addSelectionElement,
+        event: addActiveElement,
         payload: u.toString()
       });
       setMessageToQueue(`Запускаем обход вершины номер ${u - 1}`);
@@ -123,12 +132,12 @@ export class DinicAlgGraph {
         const nextEdge = this.adj[u][i];
         const { v } = nextEdge;
         addTasksToQueue({
-          event: addSelectionElement,
+          event: addActiveElement,
           payload: `${v}`
         });
         const residual = nextEdge.capacity - nextEdge.flow;
         addTasksToQueue({
-          event: addSelectionElement,
+          event: addActiveElement,
           payload: `${u}-${v}`
         });
         setMessageToQueue(`Проверяем ребро ${u - 1}-${v - 1}`);

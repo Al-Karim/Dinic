@@ -1,6 +1,9 @@
 import { Button, Space } from 'antd';
 import { useUnit } from 'effector-react';
-import { $edges, clearSelectionElements, resetEdges } from 'entities/Graph';
+import {
+  $edges, clearActiveElements, clearSelectionElements, resetEdges
+} from 'entities/Graph';
+import { resetMessageLog } from 'entities/Log';
 import { $isVisualistionFinished, $isVisualistionStarted, setIsVisualisationStarted } from 'entities/Visualisation';
 import { useCallback, useMemo } from 'react';
 import { $maxFlow, calculateMaxFlow } from '../model/FindMaxFlow';
@@ -15,8 +18,10 @@ export const FindMaxFlow = () => {
     onSetIsVisualisationStarted,
     isVisualistionStarted,
     isVisualistionFinished,
+    onClearActiveElements,
     onClearSelectionElements,
-    onResetEdges
+    onResetEdges,
+    onResetMessageLog
   ] = useUnit([
     calculateMaxFlow,
     $maxFlow,
@@ -24,23 +29,29 @@ export const FindMaxFlow = () => {
     setIsVisualisationStarted,
     $isVisualistionStarted,
     $isVisualistionFinished,
+    clearActiveElements,
     clearSelectionElements,
-    resetEdges
+    resetEdges,
+    resetMessageLog
   ]);
 
   const onStartVisualisationClick = useCallback(() => {
     if (isVisualistionFinished) {
-      onClearSelectionElements();
+      onClearActiveElements();
       onResetEdges();
+      onResetMessageLog();
+      onClearSelectionElements();
     }
     onCalculateMaxFlow();
     onSetIsVisualisationStarted();
   }, [
     onCalculateMaxFlow,
     onSetIsVisualisationStarted,
-    onClearSelectionElements,
+    onClearActiveElements,
     isVisualistionFinished,
-    onResetEdges
+    onResetEdges,
+    onResetMessageLog,
+    onClearSelectionElements
   ]);
 
   const buttonText = useMemo(() => {

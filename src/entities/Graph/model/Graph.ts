@@ -34,6 +34,23 @@ export const $edges = createStore<GraphEdge[]>([])
   .on(changeEdge, (edges, changingEdge) => changeEdgeHelper(edges, changingEdge)) // Изменение ребра
   .on(resetEdges, edges => resetEdgesHelper(edges)); // Сброс ребер
 
+// Событие для добавления активных элементов
+export const addActiveElement = createEvent<string>({
+  sid: 'addActiveElement'
+});
+// Событие для удаления активных элементов
+export const removeActiveElement = createEvent<string>();
+// Событие для очистки активных элементов
+export const clearActiveElements = createEvent();
+
+// Хранилище для активных элементов
+export const $activiesElements = createStore<string[]>([])
+  .on(addActiveElement, (activiesElements, addActiveElement) => [...activiesElements, addActiveElement]) // Добавление элемента выбора
+  .on(removeActiveElement, (activiesElements, removeActiveElement) => (
+    activiesElements.filter(activeElement => activeElement !== removeActiveElement)
+  )) // Удаление элемента выбора
+  .on(clearActiveElements, () => []); // Очистка элементов выбора
+
 // Событие для добавления элемента выбора
 export const addSelectionElement = createEvent<string>({ sid: 'addSelectionElement' });
 // Событие для удаления элемента выбора

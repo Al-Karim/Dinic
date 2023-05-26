@@ -19,9 +19,11 @@ export const changeEdgeHelper = (edges: GraphEdge[], changedEdge: GraphEdge) => 
     }
 
     // Возвращаем грань с обновленным свойством label, добавляя измененное значение changedEdge.label к текущему значению currentLabel.
+    // Так же увеличивает толщину грани
     return {
       ...edge,
-      label: `${changedEdge.label}/${currentLabel}`
+      label: `${changedEdge.label}/${currentLabel}`,
+      size: changedEdge.size === edge.size ? edge.size : changedEdge.size
     };
   })
 );

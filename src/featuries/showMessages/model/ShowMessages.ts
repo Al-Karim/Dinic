@@ -7,6 +7,7 @@ import {
   createStore,
   sample
 } from 'effector';
+import { setMessageToLog } from 'entities/Log';
 import { $isMessageQueueFilled, $messagesQueue } from 'entities/MessagesQueue';
 import { $visualisationSpeed } from 'entities/Visualisation';
 import { ShowMessagesFxT } from './types';
@@ -31,6 +32,7 @@ const showMessageFx = attach({
       throw new Error('Notification API is not ready');
     }
     api.info(message);
+    setMessageToLog(message);
   }
 });
 
